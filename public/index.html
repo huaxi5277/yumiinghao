@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        .container {
+            border: 1px solid black;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form>
+            <div>
+                <label>algorithm name:</label>
+            <select name="name" id="select1" style="margin-left: 20px">
+
+                <option value="MMHC">MMHC</option>
+              
+                <option value="GSBN">GSBN</option>
+              
+                <option value="GES">GES</option>
+
+                <option value="PC">PC</option>
+
+                <option value="PCStable">PCStable</option>
+
+                <option value="F2SL_c">F2SL_c</option>
+
+                <option value="F2SL_s">F2SL_s</option>
+              
+              </select>
+            </div>
+
+            <div>
+                <label>data set:</label>
+                <input type="text" id="myinput">
+            </div>
+
+
+            <div>
+                <label>data type:</label>
+                <select name="name" id="select2" style="margin-left: 20px">
+
+                    <option value="dis">dis</option>
+                  
+                    <option value="con">con</option>
+                  
+                  
+                  </select>
+            </div>
+        </form>
+    </div>
+
+    <button>提交</button>
+
+    <br>
+
+    <button id="show">展示文本内容</button>
+    <div id="showdiv"></div>
+    <script>
+        let btn = document.querySelector("button");
+        let show = document.getElementById("show");
+        let showdiv = document.getElementById("showdiv");
+        var myselect1=document.getElementById("select1");
+        var myselect2=document.getElementById("select2");
+        var myinput1 = document.getElementById('myinput');
+
+        btn.addEventListener('click', function() {
+            let option1 = myselect1.options[myselect1.selectedIndex].value;
+            let option2 = myselect2.options[myselect2.selectedIndex].value;
+            let input1 = myinput1.value;
+            let obj = {
+                option1,
+                option2,
+                input1
+            }
+            axios.post('http://127.0.0.1:3000/api', obj).then((res) => {
+                alert("success");
+            })
+        });
+
+
+
+        show.addEventListener('click', function() {
+            axios.get('http://127.0.0.1:3000/show').then((res) => {
+                showdiv.innerHTML = res?.data;
+            })
+        })
+
+
+    </script>
+</body>
+</html>
